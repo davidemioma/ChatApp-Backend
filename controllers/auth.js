@@ -63,7 +63,7 @@ export const login = async (req, res, next) => {
       maxAge: 30 * 24 * 60 * 60 * 1000, //Must match the refresh token,
     });
 
-    res.status(200).json({ others, accessToken });
+    res.status(200).json({ ...others, accessToken });
   } catch (err) {
     next(err);
   }
@@ -117,7 +117,7 @@ export const refreshAccessToken = async (req, res, next) => {
 
         const { password: userPassword, ...others } = user._doc;
 
-        res.status(200).json({ others, accessToken });
+        res.status(200).json({ ...others, accessToken });
       }
     );
   } catch (err) {
