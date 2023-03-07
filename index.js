@@ -6,6 +6,7 @@ import multer from "multer";
 import { corsOptions } from "./config/corsOptions.js";
 import { connectDB } from "./config/dbConnect.js";
 import authRoutes from "./routes/auth.js";
+import usersRoutes from "./routes/users.js";
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.post("/api/upload", upload.single("file"), (req, res, next) => {
   res.status(200).json(file.filename);
 });
 app.use("/api/auth", authRoutes);
+app.use("/api/users", usersRoutes);
 
 //Error middleware
 app.use((err, req, res, next) => {
