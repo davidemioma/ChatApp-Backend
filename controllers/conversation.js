@@ -3,12 +3,9 @@ import { createError } from "../util/error.js";
 
 export const createConversation = async (req, res, next) => {
   try {
-    const { recieverId } = req.body;
+    const { senderId, recieverId } = req.body;
 
-    if (!senderId || !recieverId)
-      return next(createError(401, "Sender and reciver ID's required"));
-
-    await Conversation.create({ members: [req.id, recieverId] });
+    await Conversation.create({ members: [senderId, recieverId] });
 
     res.status(201).json("New conversation created");
   } catch (err) {
@@ -33,14 +30,11 @@ export const getConversationsByUserId = async (req, res, next) => {
 
 export const getConversationByRecieverId = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { myId, userId } = req.query;
 
     const conversation = await Conversation.findOne({
-      members: { $in: [id] },
+      members: { $in: [myId, userId] },
     });
-
-    if (!conversation)
-      return next(createError(401, "Conversation not available"));
 
     res.status(200).json(conversation);
   } catch (err) {

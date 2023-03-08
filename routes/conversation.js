@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/", verifyAccessToken, getConversationsByUserId);
 
-router.get("/check/:id", verifyAccessToken, getConversationByRecieverId);
+router.get("/check", getConversationByRecieverId);
 
 router.post("/", verifyAccessToken, createConversation);
 
