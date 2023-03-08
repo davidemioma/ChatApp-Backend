@@ -8,7 +8,7 @@ import { verifyAccessToken } from "../middleware/verifyAccessToken.js";
 
 const router = express.Router();
 
-router.get("/", verifyAccessToken, getConversationsByUserId);
+router.get("/:id", verifyAccessToken, getConversationsByUserId);
 
 router.get("/check", getConversationByRecieverId);
 

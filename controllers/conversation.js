@@ -15,8 +15,10 @@ export const createConversation = async (req, res, next) => {
 
 export const getConversationsByUserId = async (req, res, next) => {
   try {
+    const { id } = req.params;
+
     const conversations = await Conversation.find({
-      members: { $in: [req.id] },
+      members: { $in: [id] },
     });
 
     if (!conversations)
