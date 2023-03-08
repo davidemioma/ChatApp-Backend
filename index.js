@@ -7,6 +7,8 @@ import { corsOptions } from "./config/corsOptions.js";
 import { connectDB } from "./config/dbConnect.js";
 import authRoutes from "./routes/auth.js";
 import usersRoutes from "./routes/users.js";
+import conversationRoutes from "./routes/conversation.js";
+import messagesRoutes from "./routes/messages.js";
 
 dotenv.config();
 
@@ -41,6 +43,8 @@ app.post("/api/upload", upload.single("file"), (req, res, next) => {
 });
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/conversation", conversationRoutes);
+app.use("/api/messages", messagesRoutes);
 
 //Error middleware
 app.use((err, req, res, next) => {
