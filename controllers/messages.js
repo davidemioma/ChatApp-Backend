@@ -3,12 +3,12 @@ import { createError } from "../util/error.js";
 
 export const sendMessage = async (req, res, next) => {
   try {
-    const { conversationId, text } = req.body;
+    const { conversationId, senderId, text } = req.body;
 
     if (!conversationId || !text)
       return next(createError(401, "Message and convo ID's required"));
 
-    await Message.create({ conversationId, senderId: req.id, text });
+    await Message.create({ conversationId, senderId, text });
 
     res.status(201).json("Message sent!");
   } catch (err) {

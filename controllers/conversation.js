@@ -5,6 +5,12 @@ export const createConversation = async (req, res, next) => {
   try {
     const { senderId, recieverId } = req.body;
 
+    const duplicate = await await Conversation.findOne({
+      members: { $in: [senderId, recieverId] },
+    });
+
+    if (duplicate) return res.status(200).json();
+
     await Conversation.create({ members: [senderId, recieverId] });
 
     res.status(201).json("New conversation created");
@@ -32,10 +38,10 @@ export const getConversationsByUserId = async (req, res, next) => {
 
 export const getConversationByRecieverId = async (req, res, next) => {
   try {
-    const { myId, userId } = req.query;
+    const { firstId, secId } = req.query;
 
     const conversation = await Conversation.findOne({
-      members: { $in: [myId, userId] },
+      members: { $in: [firstId, secId] },
     });
 
     res.status(200).json(conversation);
